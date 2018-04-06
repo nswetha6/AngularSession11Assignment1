@@ -1,0 +1,72 @@
+<br>
+
+<div class="container col-md-offset-2 col-md-6">
+  <form #f="ngForm" (ngSubmit)="getStudentList(f.value)">
+    <div class="panel panel-primary">
+      <div class="panel-heading"><b style="font-size: 20px">test</b></div>
+    </div>
+    
+    <!-- Adding 3 input fields and a dropdown field and date in specific format and a button to submit -->
+    <div class="form-group" >
+      <label for="firstname">First Name</label>
+      <input type="text" class="form-control" id="firstname"
+      [(ngModel)]="studentinfo.firstname" name="firstname">
+    </div>
+    
+    <div class="form-group">
+      <label for="middlename"> Middle Name</label>
+      <input type="text" class="form-control" id="middlename"
+      ngModel name="middlename">
+    </div>
+   
+    <div class="form-group">
+        <label for="lastname"> Last Name</label>
+        <input type="text" class="form-control" id="lastname"
+        ngModel name="lastname">
+    </div>
+    
+    <div class="form-group">
+        <label for="course"> Department</label>
+      <select id="course" class="form-control" id="course"
+        ngModel name="course"> 
+        <option *ngFor ="let d of droplist" [ngValue]="d.depname">
+          {{d.depname}}  <!-- Calling dropdown service to insert values -->
+        </option>
+      </select>
+      </div>
+      <div class="form-group">
+          <label for="date">Date of Joining</label>
+          <input type="date"  class="form-control" id="date" ngModel name="date">
+          <!-- bsDatepicker [bsConfig]='datePickerConfig' -->
+          
+        </div>
+        <div class="form-group">
+           <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+  </form>
+  <br>
+<div>{{f.value |json}}</div>
+<br>
+
+<div *ngIf = "submitted" class="container">
+<table class="table table-bordered table-responsive table-striped table-hover">
+    <thead class="panel panel-primary">
+      <tr class="panel-heading">
+        <td>FirstName</td>
+        <td>MiddleName</td>
+        <td>LastName</td>
+        <td>Course</td>
+        <td>DateOfJoining (D/M/Y)</td>
+      </tr>
+    </thead>
+    <tr *ngFor ="let s of FinalStudentInfo" >
+      <td>{{s.firstname}}</td>
+      <td>{{s.middlename}}</td>
+      <td>{{s.lastname}}</td>
+      <td>{{s.course}}</td>
+      <td>{{s.date | date:"d/M/y"}}</td>  <!-- using pipe to format date -->
+    </tr>
+</table>
+ </div>
+
+</div>
